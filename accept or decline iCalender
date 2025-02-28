@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Invitation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        .accept { background-color: green; color: white; }
+        .decline { background-color: red; color: white; }
+        .email { background-color: blue; color: white; }
+        .schedule { background-color: orange; color: white; }
+        button:hover { transform: scale(1.1); }
+    </style>
+</head>
+<body>
+    <h2>📅 Meeting Invitation</h2>
+    <p><strong>📝 Subject:</strong> Project Discussion</p>
+    <p><strong>📅 Date & Time:</strong> <span id="meeting-date">March 1, 2025, 10:00 AM - 11:00 AM</span></p>
+    <p><strong>📍 Location:</strong> Zoom Meeting</p>
+    
+    <button class="accept" onclick="saveToCalendar()">✅ Accept Invitation</button>
+    <button class="decline" onclick="declineInvitation()">❌ Decline Invitation</button>
+    <button class="email" onclick="sendViaDekko2()">📧 Send via Dekko 2 Mail</button>
+    <button class="schedule" onclick="scheduleOnGoogleCalendar()">📅 Schedule on Google Calendar</button>
+    
+    <script>
+        function saveToCalendar() {
+            const title = "Project Discussion";
+            const location = "Zoom Meeting";
+            const description = "Discuss project updates.";
+            const startDate = "20250301T100000Z";
+            const endDate = "20250301T110000Z";
+            
+            const googleCalendarURL = https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}&sf=true&output=xml;
+            window.open(googleCalendarURL, "_blank");
+        }
+        
+        function declineInvitation() {
+            alert("You have declined the invitation.");
+        }
+        
+        function sendViaDekko2() {
+            const subject = encodeURIComponent("Meeting Invitation: Project Discussion");
+            const body = encodeURIComponent("Hello,\n\nYou are invited to a project discussion meeting.\n\nDate & Time: March 1, 2025, 10:00 AM - 11:00 AM\nLocation: Zoom Meeting\n\nPlease confirm your attendance.\n\nBest Regards,");
+            window.location.href = mailto:?subject=${subject}&body=${body};
+        }
+        
+        function scheduleOnGoogleCalendar() {
+            const title = "Project Discussion";
+            const location = "Zoom Meeting";
+            const description = "Discuss project updates.";
+            const startDate = "20250301T100000Z";
+            const endDate = "20250301T110000Z";
+            
+            const googleCalendarURL = https://www.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&dates=${startDate}/${endDate}&details=${encodeURIComponent(description)}&location=${encodeURIComponent(location)}&sf=true&output=xml;
+            window.open(googleCalendarURL, "_blank");
+        }
+    </script>
+</body>
+</html>
