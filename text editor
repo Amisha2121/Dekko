@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML Email Editor with Right-Click Font Selection</title>
+  <style>
+    .editor {
+      width: 100%;
+      height: 200px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      overflow-y: auto;
+    }
+    /* Custom context menu styling */
+    #customContextMenu {
+      display: none;
+      position: absolute;
+      background: #fff;
+      border: 1px solid #ccc;
+      padding: 8px;
+      box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+    #customContextMenu select, #customContextMenu button {
+      padding: 5px;
+      margin: 5px 0;
+      display: block;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <h2>HTML Email Editor</h2>
+  <div id="editor" class="editor" contenteditable="true">
+    Right-click inside this box to change font or apply formatting.
+  </div>
+  <button onclick="sendEmail()">Send Email</button>
+
+  <!-- Custom context menu for font selection and formatting -->
+  <div id="customContextMenu">
+    <label for="fontSelect">Select Font:</label>
+    <select id="fontSelect">
+      <option value="Arial">Arial</option>
+      <option value="Courier New">Courier New</option>
+      <option value="Georgia">Georgia</option>
+      <option value="Times New Roman">Times New Roman</option>
+      <option value="Verdana">Verdana</option>
+      <option value="Tahoma">Tahoma</option>
+      <option value="Trebuchet MS">Trebuchet MS</option>
+      <option value="Impact">Impact</option>
+      <option value="Comic Sans MS">Comic Sans MS</option>
+      <option value="Lucida Console">Lucida Console</option>
+      <option value="Palatino Linotype">Palatino Linotype</option>
+      <option value="Garamond">Garamond</option>
+      <option value="Bookman Old Style">Bookman Old Style</option>
+      <option value="Century Gothic">Century Gothic</option>
+      <option value="Lucida Sans Unicode">Lucida Sans Unicode</option>
+    </select>
+    <button onclick="formatText('bold')">Bold</button>
+    <button onclick="formatText('italic')">Italic</button>
+    <button onclick="formatText('underline')">Underline</button>
+  </div>
+
+  <script>
+    const editor = document.getElementById("editor");
+    const contextMenu = document.getElementById("customContextMenu");
+    const fontSelect = document.getElementById("fontSelect");
+
+    // Disable the default context menu on the editor and show our custom menu
+    editor.addEventListener("contextmenu", function (e) {
+      e.preventDefault(); // Prevent the default menu
+
+      // Position our custom context menu near the mouse pointer
+      contextMenu.style.top = e.clientY + "px";
+      contextMenu.style.left = e.clientX + "px";
+      contextMenu.style.display = "block";
+    });
+
+    // When user clicks anywhere, hide the custom menu if it is visible
+    document.addEventListener("click", function (e) {
+      if (e.target !== contextMenu && !contextMenu.contains(e.target)) {
+        contextMenu.style.display = "none";
+      }
+    });
+
+    // Apply the selected font when the dropdown value changes
+    fontSelect.addEventListener("change", function () {
+      const selectedFont = this.value;
+      document.execCommand("fontName", false, selectedFont);
+      contextMenu.style.display = "none"; // Hide menu after selection
+    });
+
+    // Apply formatting (bold, italic, underline)
+    function formatText(command) {
+      document.execCommand(command, false, null);
+    }
+
+    // Function to simulate sending the email (for demo purposes)
+    function sendEmail() {
+      let content = editor.innerHTML;
+      alert("Email Content:\n" + content);
+      // Here, you can send the content using an API or form submission.
+    }
+  </script>
+</body>
+</html>
